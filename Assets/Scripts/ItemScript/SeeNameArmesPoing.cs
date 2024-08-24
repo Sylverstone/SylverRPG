@@ -10,7 +10,7 @@ public class SeeNameArmesPoing : SeeName
 
     private void OnMouseOver()
     {
-        if(calculDistance(gameObject.transform.position, player.transform.position))
+        if(GameManager.calculDistance(gameObject.transform.position, player.transform.position))
         {
             afficheNomItem(items, gameObject);
         }

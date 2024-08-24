@@ -1,6 +1,6 @@
 public class SeeNameBonus : SeeName
 {
-    public Bonus items;
+    Bonus items;
     // Start is called before the first frame update
     void Start()
     {
@@ -10,7 +10,7 @@ public class SeeNameBonus : SeeName
 
     private void OnMouseOver()
     {
-        if (calculDistance(gameObject.transform.position, player.transform.position))
+        if (GameManager.calculDistance(gameObject.transform.position, player.transform.position))
         {
             afficheNomItem(items, gameObject);
         }

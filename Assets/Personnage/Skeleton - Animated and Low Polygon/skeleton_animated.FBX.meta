@@ -698,7 +698,7 @@ ModelImporter:
       name: Hit
       takeName: Take 001
       internalID: 0
-      firstFrame: 48
+      firstFrame: 50
       lastFrame: 98
       wrapMode: 0
       orientationOffsetY: 0
@@ -2536,7 +2536,7 @@ ModelImporter:
       takeName: Take 001
       internalID: 0
       firstFrame: 981
-      lastFrame: 1013
+      lastFrame: 1012
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -2870,7 +2870,7 @@ ModelImporter:
       takeName: Take 001
       internalID: 0
       firstFrame: 1103
-      lastFrame: 1143
+      lastFrame: 1142
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

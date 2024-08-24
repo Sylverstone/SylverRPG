@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public class SeeName : MonoBehaviour
 {
-    public GameObject objectImage;
-    public Image uiImage;
     public TextMeshPro textNomItem;
     public GameObject player;
 
@@ -32,11 +30,7 @@ public class SeeName : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         textNomItem = gameObject.GetComponentInChildren<TextMeshPro>();
-        if (objectImage != null)
-        {
-            uiImage = objectImage.GetComponent<Image>();
-            objectImage.SetActive(false);
-        }
+        
         if (textNomItem != null)
         {
             textNomItem.text = "";
@@ -58,7 +52,6 @@ public class SeeName : MonoBehaviour
     {
         if (textNomItem != null)
         {
-            objectImage.SetActive(false);
             textNomItem.text = "";
         }        
     }
@@ -68,38 +61,10 @@ public class SeeName : MonoBehaviour
     {
         if (objet.activeSelf && textNomItem != null)
         {
-            objectImage.SetActive(true);
-            uiImage.sprite = items.spriteItem;
             textNomItem.text = items.nom_item;
         }
     }
 
-    /*
-    public void afficheNomItem(ArmesPoing items, GameObject objet)
-    {
-        if (objet.activeSelf)
-        {
-            objectImage.SetActive(true);
-            uiImage.sprite = items.spriteItem;
-            textNomItem.text = items.nom_item;
-        }
-    }
 
-    public void afficheNomItem(Bonus items, GameObject objet)
-    {
-        if (objet.activeSelf)
-        {
-            objectImage.SetActive(true);
-            uiImage.sprite = items.spriteItem;
-            textNomItem.text = items.nom_item;
-        }
-    }
-    */
-
-    public bool calculDistance(Vector3 point1, Vector3 point2)
-    {
-        Vector3 vecteur_distance = point1 - point2;
-        return vecteur_distance.magnitude <= 10;
-    }
     
 }

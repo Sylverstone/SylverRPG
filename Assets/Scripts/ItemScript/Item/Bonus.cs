@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Bonus : Items
 {
-    public int[] bonus;
-    public string[] bonus_pattern;
+    public float[] bonus;
+    public typesBonus[] bonus_pattern;
 }
 

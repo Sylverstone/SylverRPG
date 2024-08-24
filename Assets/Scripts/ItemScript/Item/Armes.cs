@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class Armes : Items
 {
-    public int degat;
+    public float cooldown;
+    public Bonus_attribut buff;
 }

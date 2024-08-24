@@ -6,6 +6,7 @@ public class CharacterDeplacement : MonoBehaviour
 {
     public Animator animations;
     //Script
+    private CharacterCombat scriptCombat;
     private CharacterLife script_charecterLife;
     //vitesse deplacement
     public float walkSpeed;
@@ -39,7 +40,7 @@ public class CharacterDeplacement : MonoBehaviour
 
     private void Awake()
     {
-        playerControl = new PlayerControl();
+        playerControl = GameManager.playerControl;
     }
 
     private void OnEnable()
@@ -84,11 +85,12 @@ public class CharacterDeplacement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
+        scriptCombat = GetComponent<CharacterCombat>();
         script_charecterLife = GetComponent<CharacterLife>();
         isDead = script_charecterLife.isDead;
         rb = GetComponent<Rigidbody>();
-        listOfTrigger = new string[] { "Walk","Run","WalkBack","Jump" };
+        listOfTrigger = new string[] { "Walk","Run","WalkBack","Jump","HeavyAttack","QuickAttack","Resurrection" };
         animations = gameObject.GetComponent<Animator>();
         playerCollider = gameObject.GetComponent<BoxCollider>();
     }
@@ -107,77 +109,18 @@ public class CharacterDeplacement : MonoBehaviour
         }
         
 
-        /*
-        if (Input.GetKey(avancer) && !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
-        {
-            transform.Translate(0, 0, walkSpeep * Time.deltaTime);
-            if (!(jumping || Input.GetKeyDown(KeyCode.Space)))
-            {
-                resetBool();
-                animations.SetBool("Walk",true);
-                isAnim = true;
-            }
-        }
-        else if (Input.GetKey(avancer) && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
-        {
-            transform.Translate(0, 0, runSpeed * Time.deltaTime);
-            if (!(jumping || Input.GetKeyDown(KeyCode.Space)))
-            {
-                resetBool();
-                animations.SetBool("Run",true);
-                isAnim = true;
-
-            }
-        }
-
-        else if (Input.GetKey(reculer))
-        {
-            transform.Translate(0, 0, -(walkSpeep / 2) * Time.deltaTime);
-            resetBool();
-            animations.SetBool("WalkBack",true);
-            isAnim = true;
-        }
-        if (Input.GetKey(droite))
-        {
-            transform.Rotate(0, turnSpeed * Time.deltaTime, 0);
-        }
-        if (Input.GetKey(gauche))
-        {
-            transform.Rotate(0, -turnSpeed * Time.deltaTime, 0);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !Input.GetKey(reculer))
-        {
-            resetBool();
-            Debug.Log("space");
-            animations.SetBool("Jump",true);
-            Vector3 v = rb.velocity;
-            v.y = jumpVector.y;
-            rb.velocity = v;
-            isAnim = true;
-            StartCoroutine(waitJump());
-            isGrounded = false;
-        }
-
-        if (!isAnim)
-        {
-            resetBool();
-        }
-        */
-
     }
 
     public bool updateAnim()
     {
         bool canrun = true;
-        if(moveDirection == Vector2.zero && !jumping)
+        if(moveDirection == Vector2.zero && !jumping && !scriptCombat.isAttacking)
         {
             resetBool();
         }
         if (moveDirection.y != 0) 
         {
-            Debug.Log(moveDirection);
-            if (!jumping)
+            if (!jumping && !scriptCombat.isAttacking)
             {
                 resetBool();
                 if (moveDirection.y > 0) //avance
@@ -200,7 +143,7 @@ public class CharacterDeplacement : MonoBehaviour
         }
         else
         {
-            if (!jumping) 
+            if (!jumping && !scriptCombat.isAttacking) 
             { 
                 resetBool(); 
             }
@@ -212,7 +155,6 @@ public class CharacterDeplacement : MonoBehaviour
     public void moving(InputAction.CallbackContext context)
     {
         var touche = context.control.displayName;
-        Debug.Log(context.phase + " : " + touche);
         if (!isDead)
         {
             if (context.phase == InputActionPhase.Performed)
@@ -246,7 +188,6 @@ public class CharacterDeplacement : MonoBehaviour
             if(context.phase == InputActionPhase.Performed && isGrounded)
             {
                 resetBool();
-                Debug.Log("jump");
                 animations.SetBool("Jump", true);
                 Vector3 v = rb.velocity;
                 v.y = jumpVector.y;
@@ -272,7 +213,6 @@ public class CharacterDeplacement : MonoBehaviour
         if (collision.gameObject.CompareTag("Sol"))
         {   
             isGrounded = true;
-            Debug.Log("touche le sol");
         }
     }
 
@@ -295,7 +235,6 @@ public class CharacterDeplacement : MonoBehaviour
         if (collision.gameObject.CompareTag("Sol"))
         {
             isGrounded = false;
-            Debug.Log("touche pas le sol");
         }
     }
 

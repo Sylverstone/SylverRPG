@@ -36,18 +36,6 @@ public class CharacterLife : MonoBehaviour
        
     }
 
-    public void takeDamage(int damage)
-    {        
-        playerHp -= damage;
-        if (playerHp <= 0)
-        {
-            isDead = true;
-            animations.Play("Death");
-            ChangeCam script = GetComponent<ChangeCam>();
-            script.chooseCam();
-        }
-        
-    }
 
     public void Resurrection()
     {
