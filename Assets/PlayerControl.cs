@@ -1147,6 +1147,138 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Melee"",
+            ""id"": ""5e4e3784-94ed-402d-9a4e-dc7d9f86874e"",
+            ""actions"": [
+                {
+                    ""name"": ""Uppercut"",
+                    ""type"": ""Button"",
+                    ""id"": ""aff9277a-f357-4617-be8e-9d443886b714"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CoupCorp"",
+                    ""type"": ""Button"",
+                    ""id"": ""b56d27a7-841a-42b4-bc06-faef14077bac"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LegToHead"",
+                    ""type"": ""Button"",
+                    ""id"": ""dc88c415-196b-434c-a9d5-556d7f8901fd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Jab"",
+                    ""type"": ""Button"",
+                    ""id"": ""5030e0f9-deb6-4e47-a3a1-1331aa51ff28"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""ffb85879-47b0-4645-8b3c-8d4a2f88709b"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""MultiTap"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Uppercut"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""33390f56-07b3-441f-8a0a-25d5572e8b17"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Uppercut"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""27d343c4-1dca-41ea-9f95-b43e8edd9c8e"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""CoupCorp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d3b638d5-f2ce-4e4b-849d-d8a997e70095"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""CoupCorp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""678ff223-8e3a-436b-af26-d398b6b1d91d"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""LegToHead"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""95bddda0-34e3-403f-a749-628b60d1b773"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""MultiTap,MultiTap"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""LegToHead"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4eec089e-d956-485b-bb67-7f98621c0d58"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Jab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""27d92acd-9d27-4671-a5b9-865b329047e4"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Jab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -1245,6 +1377,12 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
         m_Combat_HeavyAttack = m_Combat.FindAction("HeavyAttack", throwIfNotFound: true);
         m_Combat_QuickAttack = m_Combat.FindAction("QuickAttack", throwIfNotFound: true);
         m_Combat_Fire = m_Combat.FindAction("Fire", throwIfNotFound: true);
+        // Melee
+        m_Melee = asset.FindActionMap("Melee", throwIfNotFound: true);
+        m_Melee_Uppercut = m_Melee.FindAction("Uppercut", throwIfNotFound: true);
+        m_Melee_CoupCorp = m_Melee.FindAction("CoupCorp", throwIfNotFound: true);
+        m_Melee_LegToHead = m_Melee.FindAction("LegToHead", throwIfNotFound: true);
+        m_Melee_Jab = m_Melee.FindAction("Jab", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1632,6 +1770,76 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
         }
     }
     public CombatActions @Combat => new CombatActions(this);
+
+    // Melee
+    private readonly InputActionMap m_Melee;
+    private List<IMeleeActions> m_MeleeActionsCallbackInterfaces = new List<IMeleeActions>();
+    private readonly InputAction m_Melee_Uppercut;
+    private readonly InputAction m_Melee_CoupCorp;
+    private readonly InputAction m_Melee_LegToHead;
+    private readonly InputAction m_Melee_Jab;
+    public struct MeleeActions
+    {
+        private @PlayerControl m_Wrapper;
+        public MeleeActions(@PlayerControl wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Uppercut => m_Wrapper.m_Melee_Uppercut;
+        public InputAction @CoupCorp => m_Wrapper.m_Melee_CoupCorp;
+        public InputAction @LegToHead => m_Wrapper.m_Melee_LegToHead;
+        public InputAction @Jab => m_Wrapper.m_Melee_Jab;
+        public InputActionMap Get() { return m_Wrapper.m_Melee; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MeleeActions set) { return set.Get(); }
+        public void AddCallbacks(IMeleeActions instance)
+        {
+            if (instance == null || m_Wrapper.m_MeleeActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_MeleeActionsCallbackInterfaces.Add(instance);
+            @Uppercut.started += instance.OnUppercut;
+            @Uppercut.performed += instance.OnUppercut;
+            @Uppercut.canceled += instance.OnUppercut;
+            @CoupCorp.started += instance.OnCoupCorp;
+            @CoupCorp.performed += instance.OnCoupCorp;
+            @CoupCorp.canceled += instance.OnCoupCorp;
+            @LegToHead.started += instance.OnLegToHead;
+            @LegToHead.performed += instance.OnLegToHead;
+            @LegToHead.canceled += instance.OnLegToHead;
+            @Jab.started += instance.OnJab;
+            @Jab.performed += instance.OnJab;
+            @Jab.canceled += instance.OnJab;
+        }
+
+        private void UnregisterCallbacks(IMeleeActions instance)
+        {
+            @Uppercut.started -= instance.OnUppercut;
+            @Uppercut.performed -= instance.OnUppercut;
+            @Uppercut.canceled -= instance.OnUppercut;
+            @CoupCorp.started -= instance.OnCoupCorp;
+            @CoupCorp.performed -= instance.OnCoupCorp;
+            @CoupCorp.canceled -= instance.OnCoupCorp;
+            @LegToHead.started -= instance.OnLegToHead;
+            @LegToHead.performed -= instance.OnLegToHead;
+            @LegToHead.canceled -= instance.OnLegToHead;
+            @Jab.started -= instance.OnJab;
+            @Jab.performed -= instance.OnJab;
+            @Jab.canceled -= instance.OnJab;
+        }
+
+        public void RemoveCallbacks(IMeleeActions instance)
+        {
+            if (m_Wrapper.m_MeleeActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IMeleeActions instance)
+        {
+            foreach (var item in m_Wrapper.m_MeleeActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_MeleeActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public MeleeActions @Melee => new MeleeActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -1712,5 +1920,12 @@ public partial class @PlayerControl: IInputActionCollection2, IDisposable
         void OnHeavyAttack(InputAction.CallbackContext context);
         void OnQuickAttack(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
+    }
+    public interface IMeleeActions
+    {
+        void OnUppercut(InputAction.CallbackContext context);
+        void OnCoupCorp(InputAction.CallbackContext context);
+        void OnLegToHead(InputAction.CallbackContext context);
+        void OnJab(InputAction.CallbackContext context);
     }
 }

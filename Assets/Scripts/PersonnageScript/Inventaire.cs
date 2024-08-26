@@ -10,9 +10,9 @@ public class Inventaire : MonoBehaviour
     // Start is called before the first frame update
     public List<Items> Inventaire_joueur = new List<Items>();
     public GameObject inventaire;
-    public CharacterLife script_vie;
-    public CharacterDeplacement script_deplacement;
-    public CharacterCombat script_combat;
+    private CharacterLife script_vie;
+    private CharacterDeplacement script_deplacement;
+    private CharacterCombat script_combat;
     private int taille_inventaire = 0;
     private int max_inventaire = 3;
 

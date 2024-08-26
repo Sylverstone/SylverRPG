@@ -1125,6 +1125,138 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Melee",
+            "id": "5e4e3784-94ed-402d-9a4e-dc7d9f86874e",
+            "actions": [
+                {
+                    "name": "Uppercut",
+                    "type": "Button",
+                    "id": "aff9277a-f357-4617-be8e-9d443886b714",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CoupCorp",
+                    "type": "Button",
+                    "id": "b56d27a7-841a-42b4-bc06-faef14077bac",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LegToHead",
+                    "type": "Button",
+                    "id": "dc88c415-196b-434c-a9d5-556d7f8901fd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Jab",
+                    "type": "Button",
+                    "id": "5030e0f9-deb6-4e47-a3a1-1331aa51ff28",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ffb85879-47b0-4645-8b3c-8d4a2f88709b",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "MultiTap",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Uppercut",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "33390f56-07b3-441f-8a0a-25d5572e8b17",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Uppercut",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "27d343c4-1dca-41ea-9f95-b43e8edd9c8e",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "CoupCorp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d3b638d5-f2ce-4e4b-849d-d8a997e70095",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "CoupCorp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "678ff223-8e3a-436b-af26-d398b6b1d91d",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "LegToHead",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "95bddda0-34e3-403f-a749-628b60d1b773",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "MultiTap,MultiTap",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "LegToHead",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4eec089e-d956-485b-bb67-7f98621c0d58",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Jab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "27d92acd-9d27-4671-a5b9-865b329047e4",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Jab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

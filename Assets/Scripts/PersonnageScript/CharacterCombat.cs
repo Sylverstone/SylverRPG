@@ -14,14 +14,24 @@ public class CharacterCombat : MonoBehaviour,IDamageable
     InputAction HeavyAttack;
     InputAction NormalAttack;
     InputAction Fire;
+
+    InputAction Jab;
+    InputAction LegToHead;
+    InputAction CoupAuCorp;
+    InputAction Uppercut;
+
     PlayerControl playerControl;
 
     public float degatMelee;
+    public float multiplicateurFist = 1f;
+    public float multiplicateurLeg = 1.2f;
     public float degatArme = 1;
     public Armes equip_Item = null;
     public typesItem type_item;
     public bool MakeHeavyAttack;
     public bool isAttacking;
+    public bool haveMelee = false;
+    public float tempPasserSansMelee;
     public Dictionary<string, float> dicoTempAnim = new Dictionary<string, float>
     {
         {"Heavy",1f},
@@ -35,11 +45,18 @@ public class CharacterCombat : MonoBehaviour,IDamageable
         Color = new couleur();
         playerControl = GameManager.playerControl;
         animator = GetComponent<CharacterDeplacement>().animations;
+        StartCoroutine(getTimeWithoutMelee());
     }
 
     private void OnEnable()
     {
-        
+        playerControl.Melee.Enable();
+        Jab = playerControl.Melee.Jab;
+        LegToHead = playerControl.Melee.LegToHead;
+        CoupAuCorp = playerControl.Melee.CoupCorp;
+        Uppercut = playerControl.Melee.Uppercut;
+
+
 
     }
     public void ActiveCombat()
@@ -143,6 +160,29 @@ public class CharacterCombat : MonoBehaviour,IDamageable
 
     }
 
+    void onMelee(InputAction.CallbackContext context)
+    {
+        script_deplacement.resetBool();
+        animator.SetBool("Combat", true);
+        tempPasserSansMelee = 0;
+        if (context.action.name == "Jab")
+        {
+            animator.SetBool("Jab", true);
+        }
+        else if(context.action.name == "LegToHead")
+        {
+            animator.SetBool("LegToHead", true);
+        }
+        else if(context.action.name == "Uppercut")
+        {
+            animator.SetBool("Uppercut", true);
+        }
+        else if( context.action.name == "CoupCorp")
+        {
+            animator.SetBool("Coup au Corp", true);
+        }
+    }
+
     IEnumerator resetIsAttacking(string attaque)
     {
         float delta = dicoTempAnim[attaque];
@@ -157,5 +197,38 @@ public class CharacterCombat : MonoBehaviour,IDamageable
         StartCoroutine(GameManager.effaceTextIn(text,3));
     }
 
-    
+    public void HandleMeleeFight(PartieMelee partie, GameObject cible)
+    {
+        Debug.Log(partie + " a touché");
+        IDamageable i = cible.GetComponent<IDamageable>();
+        if(i != null)
+        {
+            if(partie == PartieMelee.Pied)
+            {
+                i.takeDamage(degatMelee * multiplicateurLeg);
+            }
+            if(partie == PartieMelee.Poing)
+            {
+                i.takeDamage(degatMelee * multiplicateurFist);
+            }
+        }
+    }
+    /*
+    IEnumerator getTimeWithoutMelee()
+    {
+
+        while (true)
+        {
+            
+            tempPasserSansMelee += Time.deltaTime;
+            if(tempPasserSansMelee >= 10)
+            {
+                animator.SetBool("Combat", false);
+                tempPasserSansMelee = 0;
+            }
+            
+        }
+
+    }
+    */
 }

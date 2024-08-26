@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.HID;
 
 public class CharacterDeplacement : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class CharacterDeplacement : MonoBehaviour
     public float runSpeed;
     public float turnSpeed;
     public float currentSpeed;
+    public float groundDistance;
 
     //Inputs
     /*
@@ -29,14 +31,16 @@ public class CharacterDeplacement : MonoBehaviour
     private InputAction jump;
 
     private Rigidbody rb;
-    public Vector3 jumpVector;
-    BoxCollider playerCollider;
+    public float jumpForce;
+    SphereCollider playerCollider;
     private bool isGrounded;
     private bool jumping = false;
-    public string[] listOfTrigger;
+    public string[] listOfBool;
     private bool isDead;
     private bool CanRun;
-    public bool jumpButtonPress = false;
+    private bool grounded = true;
+
+    public Transform footLocation;
 
     private void Awake()
     {
@@ -90,22 +94,27 @@ public class CharacterDeplacement : MonoBehaviour
         script_charecterLife = GetComponent<CharacterLife>();
         isDead = script_charecterLife.isDead;
         rb = GetComponent<Rigidbody>();
-        listOfTrigger = new string[] { "Walk","Run","WalkBack","Jump","HeavyAttack","QuickAttack","Resurrection" };
         animations = gameObject.GetComponent<Animator>();
-        playerCollider = gameObject.GetComponent<BoxCollider>();
+        playerCollider = gameObject.GetComponent<SphereCollider>();
     }
 
-    
-    // Update is called once per frame
-    void Update()
+    private void Update()
+    {
+        Debug.DrawRay(footLocation.position, new Vector3(0,-groundDistance,0), duration: 10, color: Color.red);
+    }
+
+
+    void FixedUpdate()
     {
        
         if (!isDead)
         {
             CanRun = updateAnim();
             currentSpeed = CanRun ? currentSpeed : walkSpeed;
-            transform.Translate(0, 0, moveDirection.y * currentSpeed * Time.deltaTime);
-            transform.Rotate(0, moveDirection.x * turnSpeed * Time.deltaTime, 0);
+            //transform.Translate(0, 0, moveDirection.y * currentSpeed * Time.deltaTime);
+            rb.MovePosition(transform.position + transform.forward * moveDirection.y * currentSpeed*Time.deltaTime);
+            //transform.Rotate(0, moveDirection.x * turnSpeed * Time.deltaTime, 0);
+            rb.MoveRotation(transform.rotation *  Quaternion.Euler(0,moveDirection.x * turnSpeed * Time.deltaTime,0));
         }
         
 
@@ -114,14 +123,16 @@ public class CharacterDeplacement : MonoBehaviour
     public bool updateAnim()
     {
         bool canrun = true;
-        if(moveDirection == Vector2.zero && !jumping && !scriptCombat.isAttacking)
+        if(moveDirection == Vector2.zero && grounded && !scriptCombat.isAttacking)
         {
+            Debug.Log("reset 1");
             resetBool();
         }
         if (moveDirection.y != 0) 
         {
-            if (!jumping && !scriptCombat.isAttacking)
+            if (grounded && !scriptCombat.isAttacking)
             {
+                Debug.Log("reset 4");
                 resetBool();
                 if (moveDirection.y > 0) //avance
                 {
@@ -136,15 +147,16 @@ public class CharacterDeplacement : MonoBehaviour
                 }
                 else //recule
                 {
-                    animations.SetBool("WalkBack", true);
+                    animations.SetBool("BackWalk", true);
                     canrun = false;
                 }
             }
         }
         else
         {
-            if (!jumping && !scriptCombat.isAttacking) 
-            { 
+            if (grounded && !scriptCombat.isAttacking) 
+            {
+                Debug.Log("reset 2");
                 resetBool(); 
             }
             
@@ -154,17 +166,9 @@ public class CharacterDeplacement : MonoBehaviour
 
     public void moving(InputAction.CallbackContext context)
     {
-        var touche = context.control.displayName;
         if (!isDead)
         {
-            if (context.phase == InputActionPhase.Performed)
-            {
-                moveDirection = context.action.ReadValue<Vector2>();
-            }
-            else if (context.phase == InputActionPhase.Canceled)
-            {         
-                moveDirection = Vector2.zero;
-            }
+            moveDirection = context.ReadValue<Vector2>();
         }
     }
 
@@ -185,28 +189,53 @@ public class CharacterDeplacement : MonoBehaviour
     {
         if (!isDead)
         {
-            if(context.phase == InputActionPhase.Performed && isGrounded)
+            Debug.Log(IsGrounded());
+            if (context.phase == InputActionPhase.Performed && grounded)
             {
                 resetBool();
                 animations.SetBool("Jump", true);
-                Vector3 v = rb.velocity;
-                v.y = jumpVector.y;
-                rb.velocity = v;
+                rb.velocity = transform.up * jumpForce;
                 jumping = true;
-                isGrounded = false;
-                StartCoroutine(waitJump());
+                grounded = false;
+                StartCoroutine(waitUntilTouchGround());
             }
         }
     }
 
     public void resetBool()
     {
-        foreach(string bool_ in listOfTrigger)
+        
+        foreach(string bool_ in listOfBool)
         {
             animations.SetBool(bool_, false);
         }
+        
+    }
+    
+
+    IEnumerator waitUntilTouchGround()
+    {
+        Debug.Log("true");
+        yield return new WaitWhile(IsGrounded);
+        Debug.Log("is grounded false");
+        yield return new WaitUntil(IsGrounded);
+        Debug.Log("is grounded true");
+        Debug.Log("reset 3");
+        grounded = true;
+        resetBool();
     }
 
+    public bool IsGrounded()
+    {
+        
+        return Physics.Raycast(footLocation.position, -transform.up, groundDistance);
+    }
+
+
+
+    /*
+     * 
+     * 
     void OnCollisionEnter(Collision collision)
     {
         // Vérifier si l'objet entre en collision avec le sol
@@ -215,7 +244,6 @@ public class CharacterDeplacement : MonoBehaviour
             isGrounded = true;
         }
     }
-
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("Sol"))
@@ -237,10 +265,7 @@ public class CharacterDeplacement : MonoBehaviour
             isGrounded = false;
         }
     }
+    */
 
-    IEnumerator waitJump()
-    {
-        yield return new WaitForSeconds(0.2f);
-        resetBool();
-    }
+
 }
